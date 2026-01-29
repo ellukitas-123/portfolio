@@ -1,6 +1,6 @@
 ---
 import ExperienceCard from '../components/cards/ExperienceCard.astro';
-import ExperienceStack from '../components/cards/ExperienceStack.astro';
+import StackCard from '../components/cards/StackCard.astro';
 import Construction from '../components/Construction.astro';
 import Background from '../components/Background.astro';
 import StackBubbleCard from '../components/cards/StackBubbleCard.astro';
@@ -8,8 +8,7 @@ import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 
 import '../styles/global.css';
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import ProjectCard from '../components/cards/ProjectCard.astro';
 ---
 
 <Layout>
@@ -26,12 +25,12 @@ import '../styles/global.css';
 				end="Ahora">
 				Desarrollo de una plataforma de entrega, comprobación y calificación de código para los estudiantes y profesores.
 				
-				<ExperienceStack>
+				<StackCard>
 					<StackBubbleCard src="/src/assets/logos/elixir.svg">Elixir</StackBubbleCard>
 					<StackBubbleCard src="/src/assets/logos/erlang.svg">Erlang</StackBubbleCard>
 					<StackBubbleCard src="/src/assets/logos/phoenix.svg">Phoenix</StackBubbleCard>
 					<StackBubbleCard src="/src/assets/logos/docker.svg">Docker</StackBubbleCard>
-				</ExperienceStack>
+				</StackCard>
 			</ExperienceCard>
 			<ExperienceCard 
 				title="Koalición Norte"
@@ -90,8 +89,21 @@ import '../styles/global.css';
 	</section>
 	<section id="projects" class="main__section">
 		<h2>Proyectos</h2>
-		<p>Próximamente...</p>
-		<Construction />
+		<div class="projects__container">
+			<ProjectCard 
+				title="Portfolio Personal"
+				img="/src/assets/projects/portfolio.png"
+				url="https://github.com/ellukitas-123/portfolio"
+			>
+				Mi portfolio personal, construido con Astro y Tailwind CSS. Presenta mi experiencia, stack tecnológico y proyectos.
+				Es la página web que se muestra en este momento.
+				<StackCard>
+					<StackBubbleCard src="/src/assets/logos/astro.svg">Astro</StackBubbleCard>
+					<StackBubbleCard src="/src/assets/logos/typescript.svg">TypeScript</StackBubbleCard>
+					<StackBubbleCard src="/src/assets/logos/javascript.svg">JavaScript</StackBubbleCard>
+				</StackCard>
+			</ProjectCard>
+		</div>
 	</section>
 </Layout>
 
@@ -131,12 +143,12 @@ import '../styles/global.css';
 	}
 
 	.stack__section {
-		margin-top: 16px;
+		margin-top: 14px;
 		max-width: 600px;
 	}
 
 	.stack__section + .stack__section {
-		margin-top: 32px;
+		margin-top: 36px;
 	}
 
 	.stack__list {
@@ -147,6 +159,15 @@ import '../styles/global.css';
 		justify-content: center;
 		gap: 12px;
 	}
+
+	.projects__container {
+		width: 100%;
+		max-width: 1200px;
+		margin-top: 32px;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+	}
 </style>
 
 <script type="module">
@@ -154,6 +175,7 @@ import '../styles/global.css';
 function updateTimeline() {
 	const container = document.querySelector('.experience__content');
 	if (!container) return;
+	
 	const timeline = container.querySelector('.experience__timeline');
 	const markers = container.querySelectorAll('.experience__card__marker');
 	if (!timeline || markers.length === 0) return;
