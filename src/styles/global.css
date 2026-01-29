@@ -1,0 +1,64 @@
+@font-face {
+  font-family: 'HubotSans';
+  /* Note the leading slash; this points to public/fonts/ */
+  src: url('/fonts/HubotSans-Variable.ttf') format('truetype');
+  font-style: normal;
+  font-display: swap; /* Important for performance */
+}
+
+@font-face {
+  font-family: 'MonaSans';
+  /* Note the leading slash; this points to public/fonts/ */
+  src: url('/fonts/MonaSans-Variable.ttf') format('truetype');
+  font-style: normal;
+  font-display: swap; /* Important for performance */
+}
+
+:root {
+  --bg: #1b1b1b;
+  --text: #ffffff;
+  --text-soft: #b3b3b3;
+  --muted: #7f7f7f;
+  --bg-2: #2c2c2c;
+  --border: #3c3c3c;
+
+  --red: #ca0b0b;
+  --green: #0fb90f;
+  --blue: #0b0bca;
+  --yellow: #caca0b;
+  --orange: #ca700b;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: 'MonaSans', sans-serif;
+}
+
+/* Remove default margins/padding from headings and common elements */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+figure,
+blockquote,
+dl {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'HubotSans', sans-serif;
+  font-weight: 900;
+}

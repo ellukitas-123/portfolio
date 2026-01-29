@@ -1,11 +1,184 @@
 ---
+import ExperienceCard from '../components/cards/ExperienceCard.astro';
+import ExperienceStack from '../components/cards/ExperienceStack.astro';
+import Construction from '../components/Construction.astro';
+import Background from '../components/Background.astro';
+import StackBubbleCard from '../components/cards/StackBubbleCard.astro';
 import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 
+import '../styles/global.css';
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
+	<Background />
 	<Welcome />
+	<section id="experience" class="main__section">
+		<h2>Experiencia</h2>
+		<p>Actualmente trabajando en proyectos personales y un proyecto interno de la Universidad Politécnica de Madrid</p>
+		<div class="experience__content">
+			<div class="experience__timeline"></div>
+			<ExperienceCard 
+				title="Universidad Politécnica de Madrid"
+				init="2025"
+				end="Ahora">
+				Desarrollo de una plataforma de entrega, comprobación y calificación de código para los estudiantes y profesores.
+				
+				<ExperienceStack>
+					<StackBubbleCard src="/src/assets/logos/elixir.svg">Elixir</StackBubbleCard>
+					<StackBubbleCard src="/src/assets/logos/erlang.svg">Erlang</StackBubbleCard>
+					<StackBubbleCard src="/src/assets/logos/phoenix.svg">Phoenix</StackBubbleCard>
+					<StackBubbleCard src="/src/assets/logos/docker.svg">Docker</StackBubbleCard>
+				</ExperienceStack>
+			</ExperienceCard>
+			<ExperienceCard 
+				title="Koalición Norte"
+				init="2024"
+				end="Ahora">
+				Monitor en grupo de tiempo libre en campamentos de verano para niños y adolescentes en campo abierto.
+			</ExperienceCard>
+		</div>
+	</section>
+	<section id="stack" class="main__section">
+		<h2>Stack</h2>
+		<section class="stack__section stack__languages" >
+			<h3>Lenguajes</h3>
+			<div class="stack__list">
+				<StackBubbleCard src="/src/assets/logos/html5.svg">HTML 5</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/css3.svg">CSS 3</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/javascript.svg">JavaScript</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/typescript.svg">TypeScript</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/go.svg">Go</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/sql.svg">SQL</StackBubbleCard>
+			</div>
+		</section>
+		<section class="stack__section stack__frameworks" >
+			<h3>Frameworks y librerías</h3>
+			<div class="stack__list">
+				<StackBubbleCard src="/src/assets/logos/nodejs.svg">Node.js</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/react.svg">React</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/astro.svg">Astro</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/nextjs.svg">Next.js</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/tailwind.svg">Tailwind</StackBubbleCard>
+			</div>
+		</section>
+		<section class="stack__section stack__cloud__db" >
+			<h3>Cloud y Bases de datos</h3>
+			<div class="stack__list">
+				<StackBubbleCard src="/src/assets/logos/aws.svg">AWS</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/hetzner.svg">Hetzner</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/postgresql.svg">PostgreSQL</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/prisma.svg">Prisma</StackBubbleCard>
+			</div>
+		</section>
+		<section class="stack__section stack__devops_tools" >
+			<h3>DevOps y Herramientas</h3>
+			<div class="stack__list">
+				<StackBubbleCard src="/src/assets/logos/git.svg">Git</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/github.svg">GitHub</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/docker.svg">Docker</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/linux.svg">Linux</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/copilot.svg">Github copilot</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/figma.svg">Figma</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/postman.svg">Postman</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/clickup.svg">Clickup</StackBubbleCard>
+				<StackBubbleCard src="/src/assets/logos/notion.svg">Notion</StackBubbleCard>
+			</div>
+		</section>
+	</section>
+	<section id="projects" class="main__section">
+		<h2>Proyectos</h2>
+		<p>Próximamente...</p>
+		<Construction />
+	</section>
 </Layout>
+
+<style>
+	.main__section {
+		padding: 32px 64px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.main__section h2,
+	.main__section h3,
+	.main__section p {
+		text-align: center;
+	}
+
+	h2 {
+		font-size: 32px;
+	}
+
+	.experience__content {
+		max-width: 1100px;
+		margin-top: 32px;
+		position: relative;
+	}
+
+	.experience__timeline {
+		position: absolute;
+		left: 50%;
+		width: 4px;
+		top: 0;
+		height: 0;
+		background-color: var(--bg-2);
+		border-radius: 2px;
+	}
+
+	.stack__section {
+		margin-top: 16px;
+		max-width: 600px;
+	}
+
+	.stack__section + .stack__section {
+		margin-top: 32px;
+	}
+
+	.stack__list {
+		margin-top: 16px;
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: row;
+		justify-content: center;
+		gap: 12px;
+	}
+</style>
+
+<script type="module">
+// Measure marker centers and set timeline top/height to span from first to last marker
+function updateTimeline() {
+	const container = document.querySelector('.experience__content');
+	if (!container) return;
+	const timeline = container.querySelector('.experience__timeline');
+	const markers = container.querySelectorAll('.experience__card__marker');
+	if (!timeline || markers.length === 0) return;
+
+	const parentRect = container.getBoundingClientRect();
+	const centers = Array.from(markers).map(m => {
+		const r = m.getBoundingClientRect();
+		return r.top + r.height / 2 - parentRect.top;
+	});
+
+	const min = Math.min(...centers);
+	const max = Math.max(...centers);
+	timeline.style.top = Math.round(min) + 'px';
+	timeline.style.height = Math.max(2, Math.round(max - min)) + 'px';
+}
+
+window.addEventListener('load', () => {
+	updateTimeline();
+	window.addEventListener('resize', updateTimeline);
+	// observe content changes
+	const container = document.querySelector('.experience__content');
+	if (container && window.ResizeObserver) {
+		const ro = new ResizeObserver(updateTimeline);
+		ro.observe(container);
+		container.querySelectorAll('.experience__card').forEach(c => ro.observe(c));
+	}
+});
+</script>

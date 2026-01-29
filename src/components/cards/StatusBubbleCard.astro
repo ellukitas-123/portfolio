@@ -1,0 +1,72 @@
+---
+type StatusKey = 'available' | 'searching' | 'working' | 'closed'
+interface Props { status: StatusKey }
+
+const { status } = Astro.props as Props;
+
+const states = {
+	available: {
+		text: "Disponible para trabajar",
+		color: "green"
+	},
+	searching: {
+		text: "Buscando oportunidades",
+		color: "yellow"
+	},
+	working: {
+		text: "Actualmente trabajando",
+		color: "red"
+	},
+	closed: {
+		text: "No disponible",
+		color: "red"
+	}
+}
+---
+
+<div class={"status__card " + states[status].color}>
+	<div class="status__card__indicator"></div>
+	<span>{states[status].text}</span>
+</div>
+
+<style>
+	.status__card {
+		padding: 8px 12px 8px 8px;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 8px;
+		background-color: var(--bg-2);
+		border: 1px solid var(--border);
+		border-radius: 20px;
+		color: var(--text);
+		text-decoration: none;
+	}
+
+	.status__card__indicator {
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+	}
+
+	.green {
+		border-color: var(--green);
+	}
+	.green .status__card__indicator {
+		background-color: var(--green);
+	}
+
+	.yellow {
+		border-color: var(--yellow);
+	}
+	.yellow .status__card__indicator {
+		background-color: var(--yellow);
+	}
+
+	.red {
+		border-color: var(--red);
+	}
+	.red .status__card__indicator {
+		background-color: var(--red);
+	}
+</style>

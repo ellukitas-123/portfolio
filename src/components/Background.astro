@@ -1,0 +1,111 @@
+<div class="logos__background">
+</div>
+
+<script type="module">
+	const logos = ["astro", "aws", "clickup", "copilot", "css", "docker", "elixir", "erlang", "figma", "git", "github", "gitlab", "go", "html5", "javascript", "linux", "nextjs", "nodejs", "notion", "phoenix", "postgresql", "postman", "prisma", "react", "sql", "tailwind", "typescript", "vscode"];
+	const speed = 5; // pixels per second
+
+	function sampleLogos(count) {
+		const arr = logos.slice();
+		for (let i = arr.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[arr[i], arr[j]] = [arr[j], arr[i]];
+		}
+		return arr.slice(0, count);
+	}
+
+	function buildRows() {
+		const w = document.documentElement.clientWidth || window.innerWidth;
+		const h = document.documentElement.clientHeight || window.innerHeight;
+		const perRow = Math.max(1, Math.floor(w / 100));
+		const perCol = Math.max(1, Math.floor(h / 100));
+		const animationDuration = w / speed;
+		const container = document.querySelector('.logos__background');
+
+		if (!container) return;
+
+		container.innerHTML = '';
+		for (let r = 0; r < perCol; r++) {
+			const rowDiv = document.createElement('div');
+			rowDiv.className = 'logos__background__row';
+			rowDiv.style.animationDuration = `${animationDuration}s`;
+			const chosen = sampleLogos(perRow);
+			for (let i = 0; i < 2; i++) {
+				chosen.forEach((logo) => {
+					const img = document.createElement('img');
+					img.src = `/src/assets/background/${logo}.svg`;
+					img.alt = logo;
+					rowDiv.appendChild(img);
+				});
+			}
+			container.appendChild(rowDiv);
+		}
+	}
+
+	buildRows();
+
+	let __bgResizeTimer = null;
+	window.addEventListener('resize', () => {
+		if (__bgResizeTimer) clearTimeout(__bgResizeTimer);
+		__bgResizeTimer = setTimeout(buildRows, 200);
+	});
+</script>
+
+<style global>
+	.logos__background {
+		padding: 10px 0;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: 20px;
+		overflow: hidden;
+		pointer-events: none;
+	}
+
+	.logos__background__row {
+		width: 200%;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		gap: 20px;
+	}
+
+	.logos__background__row:nth-child(odd) {
+		animation: scroll-left linear infinite;
+	}
+
+	.logos__background__row:nth-child(even) {
+		animation: scroll-right linear infinite;
+	}
+
+	.logos__background img {
+		width: 80px;
+		height: 80px;
+		/* make logos monochrome white and translucent */
+		filter: grayscale(100%) brightness(0) invert(1) contrast(1.1);
+		opacity: 0.006;
+	}
+
+	@keyframes scroll-left {
+		0% {
+			transform: translateX(0);
+		}
+		100% {
+			transform: translateX(-50%);
+		}
+	}
+
+	@keyframes scroll-right {
+		0% {
+			transform: translateX(-50%);
+		}
+		100% {
+			transform: translateX(0);
+		}
+	}
+</style>

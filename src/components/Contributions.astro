@@ -1,0 +1,137 @@
+---
+import github from '../assets/logos/github.svg';
+import gitlab from '../assets/logos/gitlab.svg';
+
+const { username = 'ellukitas-123' } = Astro.props ?? {};
+
+// Render a lightweight skeleton immediately so the page doesn't wait for
+// the contributions API. The client script below will fetch and hydrate
+// the real data asynchronously.
+const weeks = Array.from({ length: 52 }).map(() =>
+    Array.from({ length: 7 }).map(() => ({ date: '', count: 0, level: 0 }))
+);
+const totalContributions = 0;
+---
+
+<section class="main__contributions">
+    <div class="contrib__header">{totalContributions} contribuciones este año</div>
+    <div class="contrib__grid" aria-hidden={false}>
+        {weeks.map((week) => (
+            <div class="contrib__week">
+                {week.map((day) => (
+                    <div
+                        class={`contrib__day level-${day.level}`}
+                        title={day.date ? (day.count == 1 ? `${day.count} contribución el ${day.date}` : `${day.count} contribuciones el ${day.date}` ) : ''}
+                        aria-label={day.date ? (day.count == 1 ? `${day.count} contribución el ${day.date}` : `${day.count} contribuciones el ${day.date}` ) : ''}
+                    />
+                ))}
+            </div>
+        ))}
+    </div>
+
+    <div class="contrib__footer">
+        <span class="contrib__source">Datos de</span>
+        <img class="contrib__logo" src={github.src} alt="GitHub" />
+        <img class="contrib__logo" src={gitlab.src} alt="GitLab" />
+    </div>
+</section>
+
+<style>
+    .contrib__grid {
+        display: flex;
+        gap: 4px;
+        padding: 8px 0;
+    }
+
+    .contrib__week {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .contrib__day {
+        width: 14px;
+        height: 14px;
+        border-radius: 4px;
+    }
+
+    .level-0 { background: color-mix(in srgb, var(--bg-2) 100%, var(--orange) 0%); }
+    .level-1 { background: color-mix(in srgb, var(--bg-2) 85%, var(--orange) 15%); }
+    .level-2 { background: color-mix(in srgb, var(--bg-2) 65%, var(--orange) 35%); }
+    .level-3 { background: color-mix(in srgb, var(--bg-2) 35%, var(--orange) 65%); }
+    .level-4 { background: color-mix(in srgb, var(--bg-2) 0%, var(--orange) 100%); }
+
+    .contrib__footer {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        justify-content: flex-end;
+        font-size: 12px;
+        opacity: 0.7;
+    }
+
+    .contrib__logo {
+        width: 16px;
+        height: 16px;
+        object-fit: contain;
+    }
+
+    .contrib__header {
+        font-size: 16px;
+        font-weight: 600;
+        align-self: flex-start;
+        opacity: 0.9;
+    }
+</style>
+
+<script type="module">
+    const USERNAME = "ellukitas-123";
+    const SLOTS = 52 * 7;
+
+    function padAndSlice(data) {
+        const padded = data.slice();
+        if (padded.length < SLOTS) {
+            const padCount = SLOTS - padded.length;
+            const empty = Array.from({ length: padCount }, () => ({ date: '', count: 0, level: 0 }));
+            padded.unshift(...empty);
+        }
+        return padded.slice(-SLOTS);
+    }
+
+    async function hydrate() {
+        try {
+            const res = await fetch(`/api/contributions/${USERNAME}`);
+            if (!res.ok) return;
+            const data = await res.json();
+            const gridDays = padAndSlice(data);
+            const weeksData = [];
+            for (let i = 0; i < 52; i++) {
+                weeksData.push(gridDays.slice(i * 7, i * 7 + 7));
+            }
+
+            const total = data.reduce((acc, d) => acc + (d.count || 0), 0);
+            const header = document.querySelector('.contrib__header');
+            if (header) header.textContent = `${total} contribuciones este año`;
+
+            const weekNodes = Array.from(document.querySelectorAll('.contrib__week'));
+            weekNodes.forEach((weekNode, wi) => {
+                const dayNodes = Array.from(weekNode.querySelectorAll('.contrib__day'));
+                const week = weeksData[wi] || Array.from({ length: 7 }, () => ({ date: '', count: 0, level: 0 }));
+                dayNodes.forEach((dayNode, di) => {
+                    const day = week[di] || { date: '', count: 0, level: 0 };
+                    dayNode.className = `contrib__day level-${day.level}`;
+                    const label = day.date ? (day.count === 1 ? `${day.count} contribución el ${day.date}` : `${day.count} contribuciones el ${day.date}`) : '';
+                    dayNode.title = label;
+                    dayNode.setAttribute('aria-label', label);
+                });
+            });
+        } catch (e) {
+            // silently fail; keep skeleton
+            console.warn('Contributions hydrate failed', e);
+        }
+    }
+
+    if (typeof window !== 'undefined') {
+        window.addEventListener('load', hydrate);
+    }
+</script>

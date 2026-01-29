@@ -1,0 +1,28 @@
+---
+const { src } = Astro.props as { src: string };
+---
+
+<div class="bubble__card">
+	<img class="bubble__card__icon" alt="Stack icon" src={src} />
+	<span><slot /></span>
+</div>
+
+<style>
+	.bubble__card {
+		padding: 8px 12px 8px 8px;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 8px;
+		background-color: var(--bg-2);
+		border: 1px solid var(--border);
+		border-radius: 20px;
+		color: var(--text);
+		text-decoration: none;
+	}
+
+	.bubble__card__icon {
+		width: 20px;
+		height: 20px;
+	}
+</style>
