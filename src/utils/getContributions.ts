@@ -1,3 +1,5 @@
+import { GITLAB_TOKEN, GITHUB_TOKEN } from 'astro:env/server';
+
 interface ContributionDay {
   date: string;
   count: number;
@@ -26,7 +28,7 @@ async function getGitHubData(
   const response = await fetch('https://api.github.com/graphql', {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${import.meta.env.GITHUB_TOKEN}`,
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ query, variables: { username } }),
@@ -56,7 +58,7 @@ async function getGitLabData(userId: string): Promise<Record<string, number>> {
     `https://gitlab.com/api/v4/users/${userId}/events?after=${afterDate}&per_page=100`,
     {
       headers: {
-        'PRIVATE-TOKEN': import.meta.env.GITLAB_TOKEN,
+        'PRIVATE-TOKEN': GITLAB_TOKEN,
       },
     },
   );

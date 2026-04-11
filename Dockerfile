@@ -6,6 +6,8 @@ WORKDIR /app
 FROM base AS deps
 COPY package.json package-lock.json ./
 RUN npm ci
+# Generates the types for astro:env
+RUN npx astro sync
 
 # Stage 3: Build - Compile the application
 FROM base AS build
