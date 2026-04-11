@@ -140,6 +140,28 @@ import ProjectCard from '../components/cards/ProjectCard.astro';
 		height: 0;
 		background-color: var(--bg-2);
 		border-radius: 2px;
+		z-index: 0;
+	}
+
+	.experience__timeline::before,
+	.experience__timeline::after {
+		content: '';
+		position: absolute;
+		left: 50%;
+		width: 14px;
+		height: 14px;
+		border-radius: 50%;
+		background-color: var(--orange);
+		border: 1px solid var(--border);
+		transform: translateX(-50%);
+	}
+
+	.experience__timeline::before {
+		top: -6px;
+	}
+
+	.experience__timeline::after {
+		bottom: -6px;
 	}
 
 	.stack__section {
@@ -168,6 +190,28 @@ import ProjectCard from '../components/cards/ProjectCard.astro';
 		grid-template-columns: repeat(3, 1fr);
 		gap: 24px;
 	}
+
+	@media (max-width: 768px) {
+		.main__section {
+			padding: 24px 16px;
+		}
+
+		.experience__content {
+			width: 100%;
+			padding-left: 0;
+		}
+
+		.experience__timeline {
+			display: block;
+			left: 50%;
+			transform: translateX(-50%);
+			top: 8px !important;
+			bottom: 8px;
+			height: auto !important;
+			width: 3px;
+			background-color: var(--border);
+		}
+	}
 </style>
 
 <script type="module">
@@ -178,7 +222,15 @@ function updateTimeline() {
 	
 	const timeline = container.querySelector('.experience__timeline');
 	const markers = container.querySelectorAll('.experience__card__marker');
-	if (!timeline || markers.length === 0) return;
+	if (!timeline) return;
+
+	if (window.matchMedia('(max-width: 768px)').matches) {
+		timeline.style.top = '0px';
+		timeline.style.height = '100%';
+		return;
+	}
+
+	if (markers.length === 0) return;
 
 	const parentRect = container.getBoundingClientRect();
 	const centers = Array.from(markers).map(m => {

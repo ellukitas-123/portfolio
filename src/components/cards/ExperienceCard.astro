@@ -9,8 +9,6 @@ const { title, init, end } = Astro.props as {
 <div class="experience__card">
 	<div class="experience__card__marker">
 		<div class="experience__card__marker__line"></div>
-		<div class="experience__card__marker__dot__1"></div>
-		<div class="experience__card__marker__dot__2"></div>
 	</div>
 	<div class="experience__card__content">
 		<h3 class="experience__card__title">{title}</h3>
@@ -97,7 +95,9 @@ const { title, init, end } = Astro.props as {
 		background-color: var(--border);
 	}
 
-	.experience__card__marker__dot__1, .experience__card__marker__dot__2 {
+	.experience__card__marker::before,
+	.experience__card__marker::after {
+		content: '';
 		position: absolute;
 		top: 50%;
 		width: 20px;
@@ -106,28 +106,86 @@ const { title, init, end } = Astro.props as {
 		border-radius: 50%;
 	}
 
-	.experience__card__marker__dot__1 {
+	.experience__card__marker::before {
 		right: -2px;
 		transform: translate(50%, -50%);
-		background-color: var(--orange);
+		background-color: var(--bg-2);
 		border: 1px solid var(--border);
 	}
 
-	.experience__card:nth-child(odd) .experience__card__marker__dot__1 {
+	.experience__card:nth-child(odd) .experience__card__marker::before {
 		right: calc(100% - 2px);
 		transform: translate(50%, -50%);
 	}
 
-	.experience__card__marker__dot__2 {
+	.experience__card__marker::after {
 		left: 0;
 		transform: translate(-50%, -50%);
 		border-right: 1px solid var(--border);
 	}
 
-	.experience__card:nth-child(odd) .experience__card__marker__dot__2 {
+	.experience__card:nth-child(odd) .experience__card__marker::after {
 		left: 100%;
 		transform: translate(-50%, -50%);
 		border-right: none;
 		border-left: 1px solid var(--border);
+	}
+
+	@media (max-width: 768px) {
+		.experience__card {
+			width: 100%;
+			z-index: 1;
+		}
+
+		.experience__card::before,
+		.experience__card::after {
+			content: '';
+			position: absolute;
+			left: 50%;
+			width: 14px;
+			height: 14px;
+			border-radius: 50%;
+			background-color: var(--bg-2);
+			border: 1px solid var(--border);
+			transform: translateX(-50%);
+			z-index: 2;
+		}
+
+		.experience__card::before {
+			top: -8px;
+		}
+
+		.experience__card::after {
+			bottom: -8px;
+		}
+
+		.experience__card:nth-child(odd) {
+			margin-left: 0;
+		}
+
+		.experience__card + .experience__card {
+			margin-top: 28px;
+		}
+
+		.experience__card:nth-child(2)::before {
+			display: none;
+		}
+
+		.experience__card:last-of-type::after {
+			display: none;
+		}
+
+		.experience__card__content {
+			width: 100%;
+		}
+
+		.experience__card:nth-child(even) .experience__card__title,
+		.experience__card:nth-child(even) .experience__card__dates {
+			text-align: left;
+		}
+
+		.experience__card__marker {
+			display: none;
+		}
 	}
 </style>
