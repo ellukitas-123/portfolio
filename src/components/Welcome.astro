@@ -15,17 +15,19 @@ const username = "ellukitas-123";
 
 <main>
 	<section class="main__content">
-		<Image class="profile__image" alt="Profile" src={profile} />
 		<section id="hero">
-			<h1>Lucas Winand Osete</h1>
-			<p class="soft">Interesado en el desarrollo web fullstack</p>
-			<section id="links">
-				<StatusBubbleCard status="available" />
-				<BubbleLink icon={github.src} href="https://github.com/ellukitas-123">ellukitas-123</BubbleLink>
-				<BubbleLink icon={gitlab.src} href="https://gitlab.com/ellukitas-123">ellukitas-123</BubbleLink>
-				<BubbleLink icon={linkedin.src} href="https://www.linkedin.com/in/lucas-winand-osete-1a1092367/">Lucas Winand Osete</BubbleLink>
-				<BubbleLink icon={mail.src} href="mailto:lucas.winand@hotmail.es">lucas.winand@hotmail.es</BubbleLink>
-			</section>
+			<Image class="profile__image" alt="Profile" src={profile} />
+			<div class="description">
+				<h1>Lucas Winand Osete</h1>
+				<p class="soft">Interesado en el desarrollo web fullstack</p>
+			</div>
+		</section>
+		<section id="links">
+			<StatusBubbleCard status="available" />
+			<BubbleLink icon={github.src} href="https://github.com/ellukitas-123">ellukitas-123</BubbleLink>
+			<BubbleLink icon={gitlab.src} href="https://gitlab.com/ellukitas-123">ellukitas-123</BubbleLink>
+			<BubbleLink icon={linkedin.src} href="https://www.linkedin.com/in/lucas-winand-osete-1a1092367/">Lucas Winand Osete</BubbleLink>
+			<BubbleLink icon={mail.src} href="mailto:lucas.winand@hotmail.es">lucas.winand@hotmail.es</BubbleLink>
 		</section>
 	</section>
 	<Contributions username={username} />
@@ -44,28 +46,38 @@ const username = "ellukitas-123";
 <style>
 	main {
 		position: relative;
-		width: 100%;
-		min-height: 100vh;
+		max-width: 100%;
+		min-width: 100%;
+		min-height: 100dvh;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		gap: 32px;
 		padding: 16px;
 	}
 
 	.main__content {
+		display: flex;
 		max-width: 50vw;
-		flex-direction: row;
+		flex-direction: column;
 		align-items: start;
-		justify-content: center;
+		justify-content: start;
+		gap: 24px;
 	}
 
 	#hero {
 		display: flex;
+		align-items: end;
+		gap: 24px;
+		justify-content: start;
+	}
+
+	.description {
+		display: flex;
 		align-items: start;
 		flex-direction: column;
 		justify-content: center;
-		padding: 16px;
 	}
 
 	h1 {
@@ -77,6 +89,7 @@ const username = "ellukitas-123";
 		display: flex;
 		gap: 8px;
 		flex-wrap: wrap;
+		justify-content: center;
 	}
 
 	p {
@@ -88,16 +101,10 @@ const username = "ellukitas-123";
 	}
 
 	.profile__image {
-		width: 120px;
-		height: 120px;
+		width: 160px;
+		height: 160px;
 		aspect-ratio: 1 / 1;
 		border-radius: 50%;
-	}
-
-	@media screen and (max-height: 368px) {
-	}
-
-	@media screen and (max-width: 768px) {
 	}
 
 	/* Scroll hint */
@@ -125,9 +132,30 @@ const username = "ellukitas-123";
 	}
 
 	.chev-2 { animation-delay: 0.12s; opacity: 0.6; margin-top: -6px; }
+	
+	@media (max-width: 1024px) {
+		.main__content {
+			max-width: 100%;
+		}
 
-	/* overlap if needed (small screens) */
+		.profile__image {
+			width: 120px;
+			height: 120px;
+		}
+	}
+
 	@media (max-width: 480px) {
+		#hero {
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+		}
+
+		.description {
+			align-items: center;
+			text-align: center;
+		}
+
 		.chev-2 { margin-top: -4px; }
 	}
 

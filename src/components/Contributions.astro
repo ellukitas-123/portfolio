@@ -82,6 +82,35 @@ const totalContributions = 0;
         align-self: flex-start;
         opacity: 0.9;
     }
+
+    @media (max-width: 1024px) {
+        .contrib__grid {
+            width: min(100%, calc(100vw - 32px));
+        }
+
+        .contrib__day {
+            width: calc(calc(100vw - 32px - 204px) / 52);
+            height: calc(calc(100vw - 32px - 204px) / 52);
+            border-radius: 2px;
+        }
+	}
+
+    @media (max-width: 768px) {
+        .contrib__grid {
+            gap: 2px;
+        }
+
+        .contrib__week {
+            width: 100%;
+            gap: 2px;
+        }
+
+        .contrib__day {
+            width: calc(calc(100vw - 32px - 102px) / 52);
+            height: calc(calc(100vw - 32px - 102px) / 52);
+            border-radius: 2px;
+        }
+	}
 </style>
 
 <script type="module">
