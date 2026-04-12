@@ -1,0 +1,110 @@
+---
+const { language, level, sublevel, src } = Astro.props as {
+	language: string;
+	level: number;
+	sublevel: number;
+	src: string;
+};
+
+const levelNames = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'Nativo'];
+---
+
+<div class="language_card">
+	<div class="language_card__header">
+		<img class="language_card__image" src={src} alt={`Icono de ${language}`} />
+		<h3 class="language__card__title">{language}</h3>
+	</div>
+	<div class="language__card__level">
+		{
+			levelNames.map((levelName, index) => (
+				<div class={`language__card__level__indicator ${index + 1 <= level ? 'active' : index + 1 <= sublevel ? 'subactive' : ''}`}>
+					<div class="language__card__level__fill"></div>
+					<p class="language__card__level__name">{levelName}</p>
+				</div>
+			))
+		}
+	</div>
+</div>
+
+<style>
+	.language_card {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 16px;
+	}
+
+	.language_card__header {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 16px;
+	}
+
+	.language_card__image {
+		width: 48px;
+		height: 48px;
+		object-fit: cover;
+		border-radius: 50%;
+	}
+
+	.language__card__title {
+		width: 100px;
+		flex-shrink: 0;
+	}
+
+	.language__card__level {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		flex-grow: 1;
+		gap: 8px;
+	}
+
+	.language__card__level__indicator {
+		position: relative;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.language__card__level__indicator .language__card__level__fill {
+		width: 100%;
+		height: 8px;
+		background-color: var(--bg-2);
+		border-radius: 8px;
+		margin-bottom: 4px;
+	}
+
+	.language__card__level__name {
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+
+	.language__card__level__indicator.active .language__card__level__fill {
+		background-color: var(--orange);
+	}
+
+	.language__card__level__indicator.subactive .language__card__level__fill {
+		background-color: var(--dark-orange);
+	}
+
+	@media (max-width: 768px) {
+		.language_card {
+			flex-direction: column;
+		}
+
+		.language__card__level {
+			margin-bottom: 24px;
+		}
+
+		.language_card__header {
+			gap: 8px;
+		}
+	}
+</style>

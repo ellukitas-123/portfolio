@@ -27,6 +27,8 @@
   --blue: #0b0bca;
   --yellow: #caca0b;
   --orange: #ca700b;
+
+  --dark-orange: #794307; /* background-color: color-mix(in srgb, var(--orange) 60%, black); */
 }
 
 *,
