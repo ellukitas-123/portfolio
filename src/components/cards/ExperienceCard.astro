@@ -1,12 +1,13 @@
 ---
-const { title, init, end } = Astro.props as {
+const { title, init, end, now } = Astro.props as {
 	title: string;
 	init: string;
 	end: string;
+	now: boolean;
 };
 ---
 
-<div class="experience__card">
+<div class={`experience__card ${now ? 'experience__card--now' : ''}`}>
 	<div class="experience__card__marker">
 		<div class="experience__card__marker__line"></div>
 	</div>
@@ -110,7 +111,6 @@ const { title, init, end } = Astro.props as {
 		right: -2px;
 		transform: translate(50%, -50%);
 		background-color: var(--bg-2);
-		border: 1px solid var(--border);
 	}
 
 	.experience__card:nth-child(odd) .experience__card__marker::before {
@@ -121,14 +121,15 @@ const { title, init, end } = Astro.props as {
 	.experience__card__marker::after {
 		left: 0;
 		transform: translate(-50%, -50%);
-		border-right: 1px solid var(--border);
 	}
 
 	.experience__card:nth-child(odd) .experience__card__marker::after {
 		left: 100%;
 		transform: translate(-50%, -50%);
-		border-right: none;
-		border-left: 1px solid var(--border);
+	}
+
+	.experience__card--now .experience__card__marker::before {
+		background-color: var(--orange);
 	}
 
 	@media (max-width: 768px) {
@@ -146,7 +147,6 @@ const { title, init, end } = Astro.props as {
 			height: 14px;
 			border-radius: 50%;
 			background-color: var(--bg-2);
-			border: 1px solid var(--border);
 			transform: translateX(-50%);
 			z-index: 2;
 		}
@@ -157,6 +157,11 @@ const { title, init, end } = Astro.props as {
 
 		.experience__card::after {
 			bottom: -8px;
+		}
+
+		.experience__card--now::after,
+		.experience__card--now::before {
+			background-color: var(--orange);
 		}
 
 		.experience__card:nth-child(odd) {
