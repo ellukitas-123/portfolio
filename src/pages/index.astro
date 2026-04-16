@@ -17,7 +17,7 @@ import LanguageCard from '../components/cards/LanguageCard.astro';
 	<Welcome />
 	<section id="experience" class="main__section">
 		<h2>Experiencia</h2>
-		<p>Actualmente trabajando en proyectos personales y un proyecto interno de la Universidad Politécnica de Madrid</p>
+		<p>Actualmente trabajando en proyectos personales</p>
 		<div class="experience__content">
 			<div class="experience__timeline"></div>
 			<ExperienceCard 
@@ -26,7 +26,6 @@ import LanguageCard from '../components/cards/LanguageCard.astro';
 				end="Ahora"
 				now>
 				Desarrollo de una plataforma de entrega, comprobación y calificación de código para los estudiantes y profesores.
-				
 				<StackCard>
 					<StackBubbleCard src="/assets/logos/elixir.svg">Elixir</StackBubbleCard>
 					<StackBubbleCard src="/assets/logos/erlang.svg">Erlang</StackBubbleCard>
@@ -47,27 +46,20 @@ import LanguageCard from '../components/cards/LanguageCard.astro';
 		<h2>Idiomas</h2>
 		<div class="languages__list">
 			<LanguageCard 
+				language="Español"
+				level={7}
+				src="/assets/logos/spanish-flag.png"
+			/>
+			<LanguageCard 
 				language="Inglés"
 				level={5}
 				src="/assets/logos/uk-flag.png"
 			/>
 			<LanguageCard 
 				language="Francés"
-				level={4}
-				sublevel={7}
+				level={7}
 				src="/assets/logos/french-flag.png"
 			/>
-			<div class="languages__legend">
-				<b>Leyenda:</b>
-				<div class="legend__indicator">
-					<div class="legend__dot" style="background-color: var(--orange);"></div>
-					<span>Nivel con certificado</span>
-				</div>
-				<div class="legend__indicator">
-					<div class="legend__dot" style="background-color: var(--dark-orange);"></div>
-					<span>Nivel real</span>
-				</div>
-			</div>
 		</div>
 	</section>
 	<section id="stack" class="main__section">
@@ -79,7 +71,7 @@ import LanguageCard from '../components/cards/LanguageCard.astro';
 				<StackBubbleCard src="/assets/logos/css3.svg">CSS 3</StackBubbleCard>
 				<StackBubbleCard src="/assets/logos/javascript.svg">JavaScript</StackBubbleCard>
 				<StackBubbleCard src="/assets/logos/typescript.svg">TypeScript</StackBubbleCard>
-				<StackBubbleCard src="/assets/logos/go.svg">Go</StackBubbleCard>
+				{/* <StackBubbleCard src="/assets/logos/go.svg">Go</StackBubbleCard> */}
 				<StackBubbleCard src="/assets/logos/sql.svg">SQL</StackBubbleCard>
 			</div>
 		</section>
@@ -88,7 +80,7 @@ import LanguageCard from '../components/cards/LanguageCard.astro';
 			<div class="stack__list">
 				<StackBubbleCard src="/assets/logos/nodejs.svg">Node.js</StackBubbleCard>
 				<StackBubbleCard src="/assets/logos/react.svg">React</StackBubbleCard>
-				<StackBubbleCard src="/assets/logos/astro.svg">Astro</StackBubbleCard>
+				{/* <StackBubbleCard src="/assets/logos/astro.svg">Astro</StackBubbleCard> */}
 				<StackBubbleCard src="/assets/logos/nextjs.svg">Next.js</StackBubbleCard>
 				<StackBubbleCard src="/assets/logos/tailwind.svg">Tailwind</StackBubbleCard>
 			</div>
@@ -125,7 +117,7 @@ import LanguageCard from '../components/cards/LanguageCard.astro';
 				img="/assets/projects/portfolio.png"
 				url="https://github.com/ellukitas-123/portfolio"
 			>
-				Mi portfolio personal, construido con Astro y Tailwind CSS. Presenta mi experiencia, stack tecnológico y proyectos.
+				Mi portfolio personal, construido con Astro. Presenta mi experiencia, stack tecnológico y proyectos.
 				Es la página web que se muestra en este momento.
 				<StackCard>
 					<StackBubbleCard src="/assets/logos/astro.svg">Astro</StackBubbleCard>
